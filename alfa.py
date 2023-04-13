@@ -5,9 +5,9 @@
 import pyshark
 import networkx as nx
 import matplotlib.pyplot as plt
-from main_func import *
-from draw_func import *
-from graph_func import * 
+from py_func.main_func import *
+from py_func.draw_func import *
+from py_func.graph_func import * 
 
 ########################################
 # config
