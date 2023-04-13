@@ -1,11 +1,17 @@
+########################################
+# imports
+########################################
+
 import pyshark
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# Open the pcap file for reading
+########################################
+# config
+########################################
+
 capture = pyshark.FileCapture('kingen.pcap')
 
-# Initialize dictionaries to keep track of the IP addresses and ports
 protocols = {}
 file_count = 0
 source_ips = {}
@@ -13,6 +19,10 @@ dest_ips = {}
 source_ports = {}
 dest_ports = {}
 conversation_lengths = {}
+
+########################################
+# main
+########################################
 
 for packet in capture:
     # Increment the count for the protocol used in this packet
@@ -53,7 +63,10 @@ for packet in capture:
         else:
             conversation_lengths[(dst_ip, src_ip, dst_port, src_port)] = [0, payload_size]
 
-# Create a directed graph to represent the network traffic
+########################################
+# graph
+########################################
+
 G = nx.DiGraph()
 
 # Add nodes for each unique IP address
@@ -74,8 +87,10 @@ for (src_ip, dst_ip, src_port, dst_port), (outgoing_data, incoming_data) in conv
     else:
         outgoing_edges.append((src_ip, dst_ip))
 
+########################################
+# draw map
+########################################
 
-# Draw the network map
 pos = nx.circular_layout(G)
 nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=800)
 nx.draw_networkx_edges(G, pos, edgelist=outgoing_edges, edge_color='red', alpha=0.5, width=2, arrows=True)
