@@ -1,23 +1,19 @@
 import pyshark
 import networkx as nx
 import matplotlib.pyplot as plt
-from termcolor import colored
 
 # Open the pcap file for reading
-capture = pyshark.FileCapture('shark1.pcap', display_filter='http or smb')
+capture = pyshark.FileCapture('kingen.pcap')
 
 # Initialize dictionaries to keep track of the IP addresses and ports
+protocols = {}
+file_count = 0
 source_ips = {}
 dest_ips = {}
 source_ports = {}
 dest_ports = {}
-protocols = {}
-file_count = 0
+conversation_lengths = {}
 
-# Create an empty graph to store the network map
-G = nx.Graph()
-
-# Loop through the packets in the capture file
 for packet in capture:
     # Increment the count for the protocol used in this packet
     if packet.highest_layer in protocols:
@@ -32,63 +28,63 @@ for packet in capture:
 
     # Increment the count for the source and destination IP addresses and ports
     if 'ip' in packet:
-        if packet.ip.src in source_ips:
-            source_ips[packet.ip.src] += 1
+        src_ip = packet.ip.src
+        dst_ip = packet.ip.dst
+        src_port = None
+        dst_port = None
+        if 'tcp' in packet:
+            src_port = packet.tcp.srcport
+            dst_port = packet.tcp.dstport
+        elif 'udp' in packet:
+            src_port = packet.udp.srcport
+            dst_port = packet.udp.dstport
+
+        # Calculate the size of the data payload
+        payload_size = int(packet.captured_length)
+
+        # Check the direction of the traffic and increment the appropriate entry in the conversation_lengths dictionary
+        if (src_ip, dst_ip, src_port, dst_port) in conversation_lengths:
+            conversation_lengths[(src_ip, dst_ip, src_port, dst_port)][0] += payload_size
         else:
-            source_ips[packet.ip.src] = 1
+            conversation_lengths[(src_ip, dst_ip, src_port, dst_port)] = [payload_size, 0]
 
-        if packet.ip.dst in dest_ips:
-            dest_ips[packet.ip.dst] += 1
+        if (dst_ip, src_ip, dst_port, src_port) in conversation_lengths:
+            conversation_lengths[(dst_ip, src_ip, dst_port, src_port)][1] += payload_size
         else:
-            dest_ips[packet.ip.dst] = 1
+            conversation_lengths[(dst_ip, src_ip, dst_port, src_port)] = [0, payload_size]
 
-    if 'tcp' in packet:
-        if packet.tcp.srcport:
-            if packet.tcp.srcport in source_ports:
-                source_ports[packet.tcp.srcport] += 1
-            else:
-                source_ports[packet.tcp.srcport] = 1
+# Create a directed graph to represent the network traffic
+G = nx.DiGraph()
 
-        if packet.tcp.dstport:
-            if packet.tcp.dstport in dest_ports:
-                dest_ports[packet.tcp.dstport] += 1
-            else:
-                dest_ports[packet.tcp.dstport] = 1
+# Add nodes for each unique IP address
+for ip in set(list(source_ips.keys()) + list(dest_ips.keys())):
+    G.add_node(ip)
 
-        # Add an edge to the graph to represent the data flow
-        G.add_edge(packet.ip.src, packet.ip.dst, weight=packet.length)
+# Add edges for each conversation between two hosts
+for (src_ip, dst_ip, src_port, dst_port), (outgoing_data, incoming_data) in conversation_lengths.items():
+    G.add_edge(src_ip, dst_ip, weight=outgoing_data)
+    G.add_edge(dst_ip, src_ip, weight=incoming_data)
 
-# Print the analysis results with colors
-print(colored('Protocol Counts:', 'green'))
-for protocol, count in protocols.items():
-    print(colored(f'{protocol}: {count}', 'yellow'))
+# Define incoming and outgoing edges
+incoming_edges = []
+outgoing_edges = []
+for (src_ip, dst_ip, src_port, dst_port), (outgoing_data, incoming_data) in conversation_lengths.items():
+    if incoming_data > outgoing_data:
+        incoming_edges.append((src_ip, dst_ip))
+    else:
+        outgoing_edges.append((src_ip, dst_ip))
 
-print(colored('\nIP Address Counts:', 'green'))
-print(colored('Source IPs:', 'yellow'))
-for ip, count in source_ips.items():
-    print(colored(f'{ip}: {count}', 'cyan'))
 
-print(colored('Destination IPs:', 'yellow'))
-for ip, count in dest_ips.items():
-    print(colored(f'{ip}: {count}', 'cyan'))
-
-print(colored('\nPort Counts:', 'green'))
-print(colored('Source Ports:', 'yellow'))
-for port, count in source_ports.items():
-    print(colored(f'{port}: {count}', 'magenta'))
-
-print(colored('Destination Ports:', 'yellow'))
-for port, count in dest_ports.items():
-    print(colored(f'{port}: {count}', 'magenta'))
-
-print(colored(f'\nNumber of Files Transferred: {file_count}', 'green'))
-talking_edges = [(u, v) for u, v, d in G.edges(data=True)]
 # Draw the network map
-pos = nx.spring_layout(G, k=8, seed=42)
+pos = nx.circular_layout(G)
 nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=800)
-nx.draw_networkx_edges(G, pos, edgelist=talking_edges, edge_color='black', alpha=0.5, width=2)
+nx.draw_networkx_edges(G, pos, edgelist=outgoing_edges, edge_color='red', alpha=0.5, width=2, arrows=True)
+nx.draw_networkx_edges(G, pos, edgelist=incoming_edges, edge_color='blue', alpha=0.5, width=2, arrows=True)
 nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif')
-flow_labels = {(u, v): f'{int(d["weight"])/1000000:.2f} MB' for (u, v, d) in G.edges(data=True)}
+flow_labels = {(u, v): f'{int(d["weight"])/1:.2f} MB' for (u, v, d) in G.edges(data=True)}
 nx.draw_networkx_edge_labels(G, pos, edge_labels=flow_labels, label_pos=0.3, font_size=8)
 plt.axis('off')
 plt.show()
+
+
+
