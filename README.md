@@ -2,7 +2,7 @@
 
 * Create a nice map from a pcap
 
-* The number closer to each node, represents data received.
+* The number closer to each node represents data received.
 
 * Works best with smaller pcaps
 
