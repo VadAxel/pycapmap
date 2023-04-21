@@ -13,7 +13,7 @@ from py_func.graph_func import *
 # config
 ########################################
 
-capture = pyshark.FileCapture('kingen.pcap')
+capture = pyshark.FileCapture('shark1.pcap')
 
 protocols = {}
 file_count = 0
