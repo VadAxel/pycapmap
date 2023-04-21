@@ -30,6 +30,9 @@ def main_func(capture, protocols, file_count, conversation_lengths):
             elif 'icmp' in packet:
                 src_ip = packet.ip.src
                 dst_ip = packet.ip.dst
+            elif 'http' in packet:
+                src_port = packet.tcp.srcport
+                dst_port = packet.tcp.dstport
 
         # Calculate the size of the data payload
             payload_size = int(packet.captured_length)
