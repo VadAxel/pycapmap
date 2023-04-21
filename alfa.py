@@ -5,7 +5,7 @@
 import pyshark
 import networkx as nx
 import matplotlib.pyplot as plt
-from py_func.main_func import *
+from py_func.packet_size_func import *
 from py_func.draw_func import *
 from py_func.graph_func import * 
 
@@ -13,7 +13,7 @@ from py_func.graph_func import *
 # config
 ########################################
 
-capture = pyshark.FileCapture('your.pcap')
+capture = pyshark.FileCapture('kingen.pcap')
 
 protocols = {}
 file_count = 0
