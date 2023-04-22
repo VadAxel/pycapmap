@@ -4,6 +4,7 @@
 
 def main_func(capture, protocols, file_count, conversation_lengths):
     for packet in capture:
+
     # Increment the count for the protocol used in this packet
         if packet.highest_layer in protocols:
             protocols[packet.highest_layer] += 1
@@ -12,7 +13,6 @@ def main_func(capture, protocols, file_count, conversation_lengths):
 
     # Check if this packet has a file attached to it
         if 'http' in packet and packet.http.get_field('response_for_uri') is not None:
-        # Increment the file count
             file_count += 1
 
     # Increment the count for the source and destination IP addresses and ports

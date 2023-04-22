@@ -20,7 +20,6 @@ def graph_func(source_ips, dest_ips, conversation_lengths):
         G.add_edge(src_ip, dst_ip, weight=outgoing_data)
         G.add_edge(dst_ip, src_ip, weight=incoming_data)
 
-# Define incoming and outgoing edges
     incoming_edges = []
     outgoing_edges = []
     for (src_ip, dst_ip, src_port, dst_port), (outgoing_data, incoming_data) in conversation_lengths.items():
