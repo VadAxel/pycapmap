@@ -12,8 +12,7 @@ from py_func.graph_func import *
 ########################################
 # config
 ########################################
-
-capture = pyshark.FileCapture('shark1.pcap')
+capture = pyshark.FileCapture('your.pcap')
 
 protocols = {}
 file_count = 0

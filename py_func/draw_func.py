@@ -11,17 +11,20 @@ import pyshark
 ########################################
 
 def draw_func(G, incoming_edges, outgoing_edges):
+    d = dict(G.degree)
     pos = nx.circular_layout(G)
-    nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=800)
+    nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=[0.5 * v * 300 for v in d.values()])
     nx.draw_networkx_edges(G, pos, edgelist=outgoing_edges, edge_color='red', alpha=0.5, width=2, arrows=True)
     nx.draw_networkx_edges(G, pos, edgelist=incoming_edges, edge_color='blue', alpha=0.5, width=2, arrows=True)
     nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif')
     flow_labels = {(u, v): f'{int(d["weight"])/1:.2f} B' for (u, v, d) in G.edges(data=True)}
     nx.draw_networkx_edge_labels(G, pos, edge_labels=flow_labels, label_pos=0.3, font_size=8)
-    
 ########################################
 # data
 ########################################
+
+    capture = pyshark.FileCapture('your.pcap')
+
 
     num_nodes = G.number_of_nodes()
 
@@ -33,8 +36,6 @@ def draw_func(G, incoming_edges, outgoing_edges):
     dest_ports = {}
     protocols = {}
     file_count = 0
-
-    capture = pyshark.FileCapture('your.pcap', display_filter='')
 
 ########################################
 # func
