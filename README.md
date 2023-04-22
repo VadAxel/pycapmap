@@ -14,6 +14,6 @@
 
 * Works best with smaller pcaps.
 
-### Illustration
+### Illustration (old)
 
 ![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmap.jpg)
