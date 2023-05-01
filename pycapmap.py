@@ -8,11 +8,14 @@ import matplotlib.pyplot as plt
 from py_func.packet_size_func import *
 from py_func.draw_func import *
 from py_func.graph_func import * 
+from py_func.pcapfile import *
 
 ########################################
 # config
 ########################################
-capture = pyshark.FileCapture('your.pcap')
+
+file = choose_pcap_file()
+capture = pcapfile.capture
 
 protocols = {}
 file_count = 0
@@ -25,8 +28,7 @@ conversation_lengths = {}
 ########################################
 # main
 ########################################
-
-main_func(capture, protocols, file_count, conversation_lengths)
+main_func(capture, file_count, conversation_lengths)
 
 ########################################
 # graph

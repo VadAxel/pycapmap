@@ -2,9 +2,9 @@
 
 ## Create a nice map from a pcap
 
-### Instrucstions
+### Instructions
 
-* Replace "your.pcap" in draw_func.py and "pycapmap.py"
+* Start pycapmap.py and choose your pcap.
 
 ### Functions
 

@@ -2,7 +2,7 @@
 # func
 ########################################
 
-def main_func(capture, protocols, file_count, conversation_lengths):
+def main_func(capture, file_count, conversation_lengths):
     total_traffic = 0
     for packet in capture:
 
