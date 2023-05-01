@@ -2,6 +2,10 @@
 
 ## Create a nice map from a pcap
 
+### Latest Release
+
+* https://github.com/VadAxel/pycapmap/releases/tag/pycapmap
+
 ### Instructions
 
 * Start pycapmap.py and choose your pcap.
