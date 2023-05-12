@@ -2,7 +2,6 @@
 # imports
 ########################################
 
-import pyshark
 import networkx as nx
 import matplotlib.pyplot as plt
 from py_func.packet_size_func import *

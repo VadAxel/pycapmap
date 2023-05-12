@@ -4,8 +4,9 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
-import pyshark
-from . import pcapfile
+from . import pcapfile 
+from . import dns
+
 ########################################
 # layout
 ########################################
@@ -14,13 +15,22 @@ def draw_func(G, incoming_edges, outgoing_edges):
     
     d = dict(G.degree)
     pos = nx.circular_layout(G)
+    node_labels = {node: node for node in G.nodes}
+
+    for node in G.nodes:
+        dns_cache = dns.DNSCache()
+        host_name = dns_cache.lookup(node)
+        if host_name == node:
+            node_labels[node] = f'{node}'
+        else:
+            node_labels[node] = f'{node}\n{host_name}' 
 
     nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=[0.5 * v * 300 for v in d.values()])
 
     nx.draw_networkx_edges(G, pos, edgelist=outgoing_edges, edge_color='red', alpha=0.5, width=2, arrows=True)
     nx.draw_networkx_edges(G, pos, edgelist=incoming_edges, edge_color='blue', alpha=0.5, width=2, arrows=True)
 
-    nx.draw_networkx_labels(G, pos, font_size=10, font_family='sans-serif')
+    nx.draw_networkx_labels(G, pos,labels=node_labels, font_size=10, font_family='sans-serif')
 
     flow_labels = {(u, v): f'{int(d["weight"])/1:.2f} B' for (u, v, d) in G.edges(data=True)}
 
@@ -64,6 +74,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
                 dest_ips[packet.ip.dst] += 1
             else:
                 dest_ips[packet.ip.dst] = 1
+            
 
         if 'tcp' in packet:
             if packet.tcp.srcport:
@@ -77,6 +88,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
                     dest_ports[packet.tcp.dstport] += 1
                 else:
                     dest_ports[packet.tcp.dstport] = 1
+
 
 ########################################
 # results
