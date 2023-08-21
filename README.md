@@ -18,6 +18,12 @@
 
 * Works best with smaller pcaps.
 
+### CC
+
+* IP Geolocation by DB-IP https://db-ip.com
+
+* Easily replaceble. 
+
 ### Illustration
 
 ![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmapill.jpg)
