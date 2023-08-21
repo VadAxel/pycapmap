@@ -40,6 +40,3 @@ G, incoming_edges, outgoing_edges = graph_func(source_ips, dest_ips, conversatio
 ########################################
 
 draw_func(G, incoming_edges, outgoing_edges)
-
-
-

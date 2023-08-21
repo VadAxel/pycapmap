@@ -6,6 +6,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from . import pcapfile 
 from . import dns
+import os
 
 ########################################
 # layout
@@ -18,12 +19,20 @@ def draw_func(G, incoming_edges, outgoing_edges):
     node_labels = {node: node for node in G.nodes}
 
     for node in G.nodes:
-        dns_cache = dns.DNSCache()
-        host_name = dns_cache.lookup(node)
-        if host_name == node:
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+
+        # CC IP Geolocation by DB-IP https://db-ip.com
+
+        geoip_database_filename = 'db.mmdb'
+        geoip_database_path = os.path.join(script_directory, geoip_database_filename)
+        dns_country = dns.DNSCountry(geoip_database_path)
+        result = dns_country.lookup(node)
+        
+        if result == node:
             node_labels[node] = f'{node}'
         else:
-            node_labels[node] = f'{node}\n{host_name}' 
+            node_labels[node] = f'{node} \n {result}' 
+
 
     nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=[0.5 * v * 300 for v in d.values()])
 
@@ -105,3 +114,4 @@ def draw_func(G, incoming_edges, outgoing_edges):
     
     plt.axis('off')
     plt.show()
+
