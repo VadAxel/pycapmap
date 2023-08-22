@@ -36,4 +36,4 @@
 
 ### Illustration
 
-![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmapill.jpg)
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmapimg.jpg)
