@@ -27,7 +27,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
         geoip_database_path = os.path.join(script_directory, geoip_database_filename)
         dns_country = dns.DNSCountry(geoip_database_path)
         result = dns_country.lookup(node)
-        
+
         if result == node:
             node_labels[node] = f'{node}'
         else:

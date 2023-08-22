@@ -14,7 +14,7 @@ class DNSCountry:
             dns = "N/A"
         if country_code == None:
             country_code = "N/A"
-
+            
         return dns, country_code
 
     def get_country_code(self, ip_address):

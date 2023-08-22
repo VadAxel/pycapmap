@@ -13,7 +13,6 @@ from py_func.pcapfile import *
 # config
 ########################################
 
-file = choose_pcap_file()
 capture = pcapfile.capture
 
 protocols = {}
@@ -27,6 +26,7 @@ conversation_lengths = {}
 ########################################
 # main
 ########################################
+
 main_func(capture, file_count, conversation_lengths)
 
 ########################################
