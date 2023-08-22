@@ -32,6 +32,8 @@
 
 * Source: https://github.com/stamparm/ipsum/tree/master
 
+* Easily replaceble.
+
 ### Illustration
 
 ![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmapill.jpg)
