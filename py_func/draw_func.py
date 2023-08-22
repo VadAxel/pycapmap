@@ -27,11 +27,25 @@ def draw_func(G, incoming_edges, outgoing_edges):
         geoip_database_path = os.path.join(script_directory, geoip_database_filename)
         dns_country = dns.DNSCountry(geoip_database_path)
         result = dns_country.lookup(node)
-
+        
         if result == node:
             node_labels[node] = f'{node}'
         else:
             node_labels[node] = f'{node} \n {result}' 
+
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        txt_file_path = os.path.join(script_directory, 'badip.txt')
+
+        with open(txt_file_path, 'r') as file:
+            ip_addresses = [line.strip() for line in file]
+
+        for ip in ip_addresses:
+            if ip == node:
+                node_labels[node] = f'{node} \n {result} \n "Known bad ip"'
+            else:
+                node_labels[node] = f'{node} \n {result} \n "Not blacklisted"'
+                
+    
 
 
     nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=[0.5 * v * 300 for v in d.values()])
@@ -42,7 +56,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
     nx.draw_networkx_labels(G, pos,labels=node_labels, font_size=10, font_family='sans-serif')
 
     flow_labels = {(v, u): f'{int(d["weight"])/1:} B' for (u, v, d) in G.edges(data=True)}
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=flow_labels, label_pos=0.3, font_size=8)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=flow_labels, label_pos=0.3, font_size=5)
 
 ########################################
 # data

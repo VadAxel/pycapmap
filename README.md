@@ -18,11 +18,19 @@
 
 * Works best with smaller pcaps.
 
+* Geo location
+
+* Bad IP check
+
 ### CC
 
 * IP Geolocation by DB-IP https://db-ip.com
 
 * Easily replaceble. 
+
+### Bad IPs
+
+* Source: https://github.com/stamparm/ipsum/tree/master
 
 ### Illustration
 
