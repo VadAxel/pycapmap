@@ -15,7 +15,6 @@ def remove_duplicates(ip_list):
 
     return unique_ips
 
-# Read IP addresses from the file
 script_directory = os.path.dirname(os.path.abspath(__file__))
 ip_file_path = os.path.join(script_directory, 'badip.txt')
 
