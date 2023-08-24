@@ -19,14 +19,13 @@ def draw_func(G, incoming_edges, outgoing_edges):
     node_labels = {node: node for node in G.nodes}
 
     for node in G.nodes:
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-
+        
         # CC IP Geolocation by DB-IP https://db-ip.com
-        path_to_folder = '../database'
 
-        geoip_database_filename = 'db.mmdb'
-        geoip_database_path = os.path.join(path_to_folder, geoip_database_filename)
-        dns_country = dns.DNSCountry(geoip_database_path)
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        db_mmdb_path = os.path.join(script_directory, '..', 'database', 'db.mmdb')
+
+        dns_country = dns.DNSCountry(db_mmdb_path)
         result = dns_country.lookup(node)
 
         if result == node:
@@ -34,7 +33,8 @@ def draw_func(G, incoming_edges, outgoing_edges):
         else:
             node_labels[node] = f'{node} \n {result}' 
 
-        txt_file_path = os.path.join(path_to_folder, 'badip.txt')
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        txt_file_path = os.path.join(script_directory, '..', 'database', 'badip.txt')
 
         with open(txt_file_path, 'r') as file:
             ip_addresses = [line.strip() for line in file]
