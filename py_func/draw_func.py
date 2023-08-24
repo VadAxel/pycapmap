@@ -45,9 +45,8 @@ def draw_func(G, incoming_edges, outgoing_edges):
             else:
                 node_labels[node] = f'{node} \n {result} \n "Not blacklisted"'
                 
-    
-
-
+    # Styling
+                
     nx.draw_networkx_nodes(G, pos, node_color='lightblue', node_size=[0.5 * v * 300 for v in d.values()])
 
     nx.draw_networkx_edges(G, pos, edgelist=incoming_edges, edge_color='blue', alpha=0.5, width=2, arrows=True)
