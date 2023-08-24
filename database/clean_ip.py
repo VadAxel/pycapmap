@@ -1,5 +1,9 @@
 import os
 
+########################################
+# func to remove duplicate IPs
+########################################
+
 def remove_duplicates(ip_list):
     unique_ips = []
     seen_ips = set()
