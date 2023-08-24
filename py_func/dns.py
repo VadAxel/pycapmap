@@ -9,9 +9,10 @@ class DNSCountry:
     def lookup(self, ip_address):
         country_code = self.get_country_code(ip_address)
         dns = socket.getfqdn(ip_address)
-        
+
         if dns == ip_address:
             dns = "N/A"
+            
         if country_code == None:
             country_code = "N/A"
             

@@ -22,19 +22,19 @@ def draw_func(G, incoming_edges, outgoing_edges):
         script_directory = os.path.dirname(os.path.abspath(__file__))
 
         # CC IP Geolocation by DB-IP https://db-ip.com
+        path_to_folder = '../database'
 
         geoip_database_filename = 'db.mmdb'
-        geoip_database_path = os.path.join(script_directory, geoip_database_filename)
+        geoip_database_path = os.path.join(path_to_folder, geoip_database_filename)
         dns_country = dns.DNSCountry(geoip_database_path)
         result = dns_country.lookup(node)
-        
+
         if result == node:
             node_labels[node] = f'{node}'
         else:
             node_labels[node] = f'{node} \n {result}' 
 
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        txt_file_path = os.path.join(script_directory, 'badip.txt')
+        txt_file_path = os.path.join(path_to_folder, 'badip.txt')
 
         with open(txt_file_path, 'r') as file:
             ip_addresses = [line.strip() for line in file]
