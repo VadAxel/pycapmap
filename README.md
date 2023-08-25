@@ -1,8 +1,8 @@
 # pycapmap
 
-## Create a nice map from a pcap
-
 ![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/py_func/logo.png)
+
+## Create a nice map from a pcap
 
 ### Latest Release
 
