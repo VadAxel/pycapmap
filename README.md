@@ -32,9 +32,11 @@
 
 ### Bad IPs
 
-* Source: https://github.com/stamparm/ipsum/tree/master  
+* Original source: https://github.com/stamparm/ipsum/tree/master  
 
-* Easily replaceble.
+* More IPs have been added from different sources.
+
+* Easily replaceble to your own list. 
 
 ### Illustration
 
