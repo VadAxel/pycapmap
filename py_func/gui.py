@@ -4,7 +4,7 @@ import os
 def start_graphic():
     sg.theme("DarkBlue")
     script_directory = os.path.dirname(os.path.abspath(__file__))
-    logo_path = os.path.join(script_directory, 'logo.png')
+    logo_path = os.path.join(script_directory,'..','images', 'logo.png')
 
     startup_layout = [
         [sg.Push(), sg.Image(logo_path), sg.Push()],

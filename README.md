@@ -1,6 +1,6 @@
 # pycapmap
 
-![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/py_func/logo.png)
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/logo.png)
 
 ## Create a nice map from a pcap
 
@@ -38,4 +38,4 @@
 
 ### Illustration
 
-![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/pycapmapimg.jpg)
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/pycapmapimg.jpg)
