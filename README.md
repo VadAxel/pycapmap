@@ -6,7 +6,7 @@
 
 ### Latest Release
 
-* https://github.com/VadAxel/pycapmap/releases/tag/pycapmap.v.1.02
+* https://github.com/VadAxel/pycapmap/releases/tag/pycapmap.v.1.03
 
 ### Instructions
 
