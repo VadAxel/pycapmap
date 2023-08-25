@@ -2,6 +2,8 @@
 
 ## Create a nice map from a pcap
 
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/py_func/logo.png)
+
 ### Latest Release
 
 * https://github.com/VadAxel/pycapmap/releases/tag/pycapmap.v.1.02
@@ -30,7 +32,7 @@
 
 ### Bad IPs
 
-* Source: https://github.com/stamparm/ipsum/tree/master
+* Source: https://github.com/stamparm/ipsum/tree/master  
 
 * Easily replaceble.
 

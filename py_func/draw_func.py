@@ -4,7 +4,7 @@
 
 import networkx as nx
 import matplotlib.pyplot as plt
-from . import pcapfile 
+from . import start 
 from . import dns
 import os
 
@@ -61,7 +61,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
 # data
 ########################################
 
-    capture = pcapfile.capture
+    capture = start.capture
 
     num_nodes = G.number_of_nodes()
 

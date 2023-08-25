@@ -7,13 +7,11 @@ import matplotlib.pyplot as plt
 from py_func.packet_size_func import *
 from py_func.draw_func import *
 from py_func.graph_func import * 
-from py_func.pcapfile import *
+from py_func.start import *
 
 ########################################
 # config
 ########################################
-
-capture = pcapfile.capture
 
 protocols = {}
 file_count = 0
@@ -22,6 +20,8 @@ dest_ips = {}
 source_ports = {}
 dest_ports = {}
 conversation_lengths = {}
+
+capture = start.capture
 
 ########################################
 # main

@@ -2,9 +2,11 @@
 # imports
 ########################################
 
-import pyshark
 import tkinter as tk
 from tkinter import filedialog
+import pyshark
+import PySimpleGUI as sg
+from .gui import *
 
 ########################################
 # func
@@ -21,7 +23,8 @@ def choose_pcap_file():
 
     return file_path
 
-file = choose_pcap_file()
+start_graphic()
 
-capture = pyshark.FileCapture(file, display_filter='')
+capture = pyshark.FileCapture(choose_pcap_file(), display_filter='')
+
 
