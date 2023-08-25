@@ -1,5 +1,13 @@
+########################################
+# imports
+########################################
+
 import socket
 import geoip2.database
+
+########################################
+# func
+########################################
 
 class DNSCountry:
     def __init__(self, geoip_database_path):
@@ -12,7 +20,7 @@ class DNSCountry:
 
         if dns == ip_address:
             dns = "N/A"
-            
+
         if country_code == None:
             country_code = "N/A"
             

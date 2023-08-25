@@ -5,7 +5,6 @@
 import tkinter as tk
 from tkinter import filedialog
 import pyshark
-import PySimpleGUI as sg
 from .gui import *
 
 ########################################
