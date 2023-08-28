@@ -20,6 +20,7 @@ def draw_func(G, incoming_edges, outgoing_edges):
     node_labels = {node: node for node in G.nodes}
 
     if extensive:
+        
         for node in G.nodes:
             
             # CC IP Geolocation by DB-IP https://db-ip.com
