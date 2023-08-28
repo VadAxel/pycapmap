@@ -6,6 +6,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from . import start 
 from . import dns
+from .settings import *
 import os
 
 ########################################
@@ -18,32 +19,33 @@ def draw_func(G, incoming_edges, outgoing_edges):
     pos = nx.circular_layout(G)
     node_labels = {node: node for node in G.nodes}
 
-    for node in G.nodes:
-        
-        # CC IP Geolocation by DB-IP https://db-ip.com
+    if extensive:
+        for node in G.nodes:
+            
+            # CC IP Geolocation by DB-IP https://db-ip.com
 
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        db_mmdb_path = os.path.join(script_directory, '..', 'database', 'db.mmdb')
+            script_directory = os.path.dirname(os.path.abspath(__file__))
+            db_mmdb_path = os.path.join(script_directory, '..', 'database', 'db.mmdb')
 
-        dns_country = dns.DNSCountry(db_mmdb_path)
-        result = dns_country.lookup(node)
+            dns_country = dns.DNSCountry(db_mmdb_path)
+            result = dns_country.lookup(node)
 
-        if result == node:
-            node_labels[node] = f'{node}'
-        else:
-            node_labels[node] = f'{node} \n {result}' 
-
-        script_directory = os.path.dirname(os.path.abspath(__file__))
-        txt_file_path = os.path.join(script_directory, '..', 'database', 'badip.txt')
-
-        with open(txt_file_path, 'r') as file:
-            ip_addresses = [line.strip() for line in file]
-
-        for ip in ip_addresses:
-            if ip == node:
-                node_labels[node] = f'{node} \n {result} \n "Known bad ip"'
+            if result == node:
+                node_labels[node] = f'{node}'
             else:
-                node_labels[node] = f'{node} \n {result} \n "Not blacklisted"'
+                node_labels[node] = f'{node} \n {result}' 
+
+            script_directory = os.path.dirname(os.path.abspath(__file__))
+            txt_file_path = os.path.join(script_directory, '..', 'database', 'badip.txt')
+
+            with open(txt_file_path, 'r') as file:
+                ip_addresses = [line.strip() for line in file]
+
+            for ip in ip_addresses:
+                if ip == node:
+                    node_labels[node] = f'{node} \n {result} \n "Known bad ip"'
+                else:
+                    node_labels[node] = f'{node} \n {result} \n "Not blacklisted"'
                 
     # Styling
                 
@@ -127,4 +129,5 @@ def draw_func(G, incoming_edges, outgoing_edges):
     
     plt.axis('off')
     plt.show()
+
 

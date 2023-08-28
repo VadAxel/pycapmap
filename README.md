@@ -10,7 +10,8 @@
 
 ### Instructions
 
-* Start pycapmap.py and choose your pcap.
+* Start by choosing your mode, plain or extensive.
+* Choose your pcap.
 
 ### Functions
 
@@ -40,7 +41,12 @@
 
 ### Illustration
 
-![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/pycapmapimg2.jpg)
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/pycapmapimg3.png)
 
+### Extensive
 
-![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/pycapmapimg.jpg)
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/extensive.png)
+
+### Plain
+
+![Settings Window](https://github.com/VadAxel/pycapmap/blob/main/images/plain.png)
